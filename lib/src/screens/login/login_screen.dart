@@ -1,18 +1,22 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:delivery_application/models/user.dart';
 import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   final BuildContext context;
-  LoginScreen(this.context, {Key? key}) : super(key: key);
+  const LoginScreen(this.context, {Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
+  final _emailOrUserController = TextEditingController();
   final _passwordController = TextEditingController();
 
   String email = "";
@@ -22,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   late FocusNode emailFocus;
   late FocusNode passwordFocus;
+
+  List<User> listOfUsers = [];
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Center(
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       "Login",
                       style: TextStyle(
                         fontSize: 35,
@@ -48,9 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          // imgFuture(),
                           TextFormField(
-                            decoration: InputDecoration(labelText: "Usuario:"),
-                            controller: _emailController,
+                            decoration:
+                                const InputDecoration(labelText: "Usuario:"),
+                            controller: _emailOrUserController,
                             focusNode: emailFocus,
                             onEditingComplete: () =>
                                 requestFocus(context, passwordFocus),
@@ -66,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           TextFormField(
@@ -86,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             obscureText: !showPassword,
                             controller: _passwordController,
                             focusNode: passwordFocus,
-                            onEditingComplete: () => _login(context),
+                            onEditingComplete: () => _signIn(context),
                             onSaved: (value) {
                               password = value!;
                             },
@@ -98,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               return null;
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           if (errorMessage.isNotEmpty)
@@ -106,43 +114,43 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.only(top: 0),
                               child: Text(
                                 errorMessage,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           ElevatedButton(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: const [
                                 Text('Iniciar Sesión'),
                               ],
                             ),
-                            onPressed: () => _login(context),
+                            onPressed: () => _signIn(context),
                             style: ButtonStyle(
                               textStyle: MaterialStateProperty.all(
-                                TextStyle(
+                                const TextStyle(
                                   color: Colors.white,
                                 ),
                               ),
                               backgroundColor: MaterialStateProperty.all(
                                   Theme.of(context).primaryColor),
-                              padding:
-                                  MaterialStateProperty.all(EdgeInsets.all(15)),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.all(15)),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("¿No estas registrado?"),
+                              const Text("¿No estas registrado?"),
                               TextButton(
                                 style: ButtonStyle(
                                   textStyle: MaterialStateProperty.all(
@@ -151,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                   ),
                                 ),
-                                child: Text("Registrarse"),
+                                child: const Text("Registrarse"),
                                 onPressed: () => _showRegister(context),
                               )
                             ],
@@ -172,8 +180,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
-    this._emailController.dispose();
-    this._passwordController.dispose();
+    _emailOrUserController.dispose();
+    _passwordController.dispose();
 
     emailFocus.dispose();
     passwordFocus.dispose();
@@ -194,34 +202,82 @@ class _LoginScreenState extends State<LoginScreen> {
     FocusScope.of(context).requestFocus(focusNode);
   }
 
-  Future<void> _login(BuildContext context) async {
-    // try {
-    //   FocusScope.of(context).unfocus();
-    //   if (_formKey.currentState.validate()) {
-    //     setState(() {
-    //       errorMessage = "";
-    //     });
+  Future<void> _signIn(BuildContext context) async {
+    FocusScope.of(context).unfocus();
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        errorMessage = "";
+      });
 
-    //     UserCredential userCredential =
-    //         await FirebaseAuth.instance.signInWithEmailAndPassword(
-    //       email: _emailController.text,
-    //       password: _passwordController.text,
-    //     );
+      var request = await http.post(
+        Uri.parse('http://192.168.1.64:9090/client/signIn'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          'emailOrUser': _emailOrUserController.text,
+          'password': _passwordController.text
+        }),
+      );
 
-    //     if (userCredential != null) {
-    //       Navigator.of(context).pushReplacementNamed('/home');
-    //     }
-    //   }
-    // } on FirebaseAuthException catch (e) {
-    //   if (e.code == 'user-not-found') {
-    //     setState(() {
-    //       errorMessage = "No user found for that email.";
-    //     });
-    //   } else if (e.code == 'wrong-password') {
-    //     setState(() {
-    //       errorMessage = "Wrong password provided for that user.";
-    //     });
-    //   }
-    // }
+      if (request.body == 'true') {
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
+    }
+    // print(request.body == 'true' ? 'entro' : 'no permitido');
+    // List<dynamic> listUsers = jsonDecode(request.body.toString());
+    // listOfUsers = listUsers.map((e) => User.fromJson(e)).toList();
+    // print(listOfUsers[0].user);
+  }
+
+  Future<dynamic> downloadData() async {
+    var request = await http.get(Uri.parse('http://192.168.1.64:9090/getImg'));
+    return jsonDecode(request.body.toString());
+  }
+
+  Future<Widget> img(String data) async {
+    var r = jsonDecode(data);
+    if (r['result'] == '') {
+      return Container();
+    }
+
+    final decodedBytes = base64Decode(r['result']);
+    var fileImg = File("testImage.png");
+    fileImg.writeAsBytesSync(decodedBytes);
+    return Image.file(fileImg);
+  }
+
+  Widget imgFuture() {
+    return FutureBuilder<dynamic>(
+      future: downloadData(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else {
+          if (snapshot.hasError) {
+            return Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF6F6F6),
+                borderRadius: BorderRadius.circular(15),
+                image: const DecorationImage(
+                  image: AssetImage("assets/image/default-image.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          } else {
+            final decodedBytes = base64Decode(snapshot.data['result']);
+            return Center(
+              child: Image.memory(
+                decodedBytes,
+                gaplessPlayback: true,
+              ),
+            );
+          }
+        }
+      },
+    );
   }
 }

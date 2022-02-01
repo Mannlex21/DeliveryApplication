@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,16 +18,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         brightness: Brightness.light,
         primaryColor: Colors.red[300],
-        accentColor: Colors.cyan[300],
         scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.black),
-          textTheme: TextTheme(
-            headline6: TextStyle(
+          toolbarTextStyle: TextStyle(
               color: Colors.black,
               fontSize: 22,
             ),
-          ),
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
             case '/':
               return LoginScreen(context);
             case '/home':
-              return MyHomeScreen();
+              return const MyHomeScreen();
             case '/registration':
               return RegistrationScreen(context);
             case '/search':

@@ -1,11 +1,9 @@
 import 'package:delivery_application/src/components/home/list_category_widget.dart';
 import 'package:delivery_application/src/components/home/list_item_widget.dart';
-import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
 
 class HomeWidget extends StatefulWidget {
-  HomeWidget({Key? key}) : super(key: key);
+  const HomeWidget({Key? key}) : super(key: key);
 
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
@@ -35,14 +33,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                         child: Padding(
                           padding: const EdgeInsets.all(10),
                           child: Row(
-                            children: [
+                            children: const [
                               Padding(
-                                padding: const EdgeInsets.only(left: 10),
+                                padding: EdgeInsets.only(left: 10),
                                 child: Icon(Icons.search),
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                    EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
                                   "Buscar",
                                   style: TextStyle(fontSize: 22),
@@ -61,14 +59,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: IconButton(
-                          icon: Icon(Icons.notifications),
+                          icon: const Icon(Icons.notifications),
                           onPressed: () {},
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: IconButton(
-                          icon: Icon(Icons.shopping_bag),
+                          icon: const Icon(Icons.shopping_bag),
                           onPressed: () {},
                         ),
                       ),

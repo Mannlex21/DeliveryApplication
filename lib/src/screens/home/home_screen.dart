@@ -1,8 +1,8 @@
 import 'package:delivery_application/src/components/home/drawer_widget.dart';
 import 'package:delivery_application/src/components/home/home_wiget.dart';
 import 'package:delivery_application/src/screens/search/search_screen.dart';
+import 'package:delivery_application/src/screens/settings/setting_screen.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyHomeScreen extends StatefulWidget {
@@ -24,21 +24,19 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     List _widgetOptions = [
-      HomeWidget(),
+      const HomeWidget(),
       SearchScreen(context, false),
-      Text(
+      const Text(
         'Index 2: School',
       ),
-      Text(
-        'Index 2: School',
-      ),
+      SettingScreen(context),
     ];
 
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
@@ -55,7 +53,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Business',
+            label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex,
