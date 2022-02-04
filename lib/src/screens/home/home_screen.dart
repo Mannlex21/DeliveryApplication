@@ -1,67 +1,105 @@
-import 'package:delivery_application/src/components/home/drawer_widget.dart';
-import 'package:delivery_application/src/components/home/home_wiget.dart';
-import 'package:delivery_application/src/screens/search/search_screen.dart';
-import 'package:delivery_application/src/screens/settings/setting_screen.dart';
-
+import 'package:delivery_application/src/components/home/list_category_widget.dart';
+import 'package:delivery_application/src/components/home/list_item_widget.dart';
 import 'package:flutter/material.dart';
 
-class MyHomeScreen extends StatefulWidget {
-  const MyHomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  _MyHomeScreenState createState() => _MyHomeScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _MyHomeScreenState extends State<MyHomeScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    List _widgetOptions = [
-      const HomeWidget(),
-      SearchScreen(context, false),
-      const Text(
-        'Index 2: School',
-      ),
-      SettingScreen(context),
-    ];
-
     return Scaffold(
-      body: _widgetOptions.elementAt(_selectedIndex),
-      drawer: const MyDrawer(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              title: Row(
+                children: [
+                  Expanded(
+                    flex: 6,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/search');
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: const Color(0xFFF6F6F6),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Row(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Icon(Icons.search),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  "Buscar",
+                                  style: TextStyle(fontSize: 22),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: IconButton(
+                          icon: const Icon(Icons.notifications),
+                          onPressed: () {},
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: IconButton(
+                          icon: const Icon(Icons.shopping_bag),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(0),
+                child: Container(),
+              ),
+              expandedHeight: 71,
+              pinned: true,
+              collapsedHeight: 71,
+              toolbarHeight: 70,
+              elevation: 1,
+              backgroundColor: Colors.white,
             ),
-            label: 'Home',
+          ];
+        },
+        body: MediaQuery.removePadding(
+          context: context,
+          removeTop: true,
+          child: ListView(
+            children: [
+              Container(
+                color: Colors.white,
+                height: 119,
+                child: ListCategoryWidget(),
+              ),
+              ListItemWidget()
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Shop',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        backgroundColor: const Color(0xFFF9F9F9),
-        type: BottomNavigationBarType.fixed,
-        elevation: 4,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

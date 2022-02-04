@@ -86,6 +86,42 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_secure_storage",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage-5.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_linux",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_linux-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_macos",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_macos-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_platform_interface",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_platform_interface-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_web",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_web-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "flutter_secure_storage_windows",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_secure_storage_windows-1.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -148,6 +184,12 @@
     {
       "name": "meta",
       "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "nested",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/nested-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -224,6 +266,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "provider",
+      "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///C:/Users/Mannlex%20Murillo/Documents/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -296,7 +344,7 @@
       "languageVersion": "2.15"
     }
   ],
-  "generated": "2022-02-01T20:43:28.397879Z",
+  "generated": "2022-02-04T00:28:32.161727Z",
   "generator": "pub",
   "generatorVersion": "2.15.1"
 }

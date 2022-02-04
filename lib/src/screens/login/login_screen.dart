@@ -1,12 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:delivery_application/src/providers/auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:delivery_application/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
+const storage = FlutterSecureStorage();
 
 class LoginScreen extends StatefulWidget {
   final BuildContext context;
+
   const LoginScreen(this.context, {Key? key}) : super(key: key);
 
   @override
@@ -203,32 +208,44 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _signIn(BuildContext context) async {
+    final auth = Provider.of<Auth>(context, listen: false);
+
     FocusScope.of(context).unfocus();
     if (_formKey.currentState!.validate()) {
       setState(() {
         errorMessage = "";
       });
 
+      var map = <String, dynamic>{};
+      map['username'] = _emailOrUserController.text;
+      map['password'] = _passwordController.text;
+
       var request = await http.post(
-        Uri.parse('http://192.168.1.64:9090/client/signIn'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({
-          'emailOrUser': _emailOrUserController.text,
+        Uri.parse('http://192.168.1.64:9090/token'),
+        body: <String, dynamic>{
+          'username': _emailOrUserController.text,
           'password': _passwordController.text
-        }),
+        },
       );
 
-      if (request.body == 'true') {
-        Navigator.of(context).pushReplacementNamed('/home');
+      var result = jsonDecode(request.body.toString());
+
+      if (result['status_code'] == 200) {
+        auth.login(result['access_token']);
+        Navigator.of(context).pushReplacementNamed('/dashboard');
+      } else {
+        displayDialog(context, "An Error Occurred",
+            "No account was found matching that username and password");
       }
     }
-    // print(request.body == 'true' ? 'entro' : 'no permitido');
-    // List<dynamic> listUsers = jsonDecode(request.body.toString());
-    // listOfUsers = listUsers.map((e) => User.fromJson(e)).toList();
-    // print(listOfUsers[0].user);
   }
+
+  void displayDialog(BuildContext context, String title, String text) =>
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialog(title: Text(title), content: Text(text)),
+      );
 
   Future<dynamic> downloadData() async {
     var request = await http.get(Uri.parse('http://192.168.1.64:9090/getImg'));

@@ -227,7 +227,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           },
           body: jsonEncode({
             'id': 0,
-            'user': _userController.text.toLowerCase(),
+            'username': _userController.text,
             'password': _passwordController.text,
             'email': _emailController.text
           }),
