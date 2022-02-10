@@ -12,15 +12,15 @@ class MyDrawer extends StatelessWidget {
       child: Column(
         children: [
           UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
                     "https://backgrounddownload.com/wp-content/uploads/2018/09/android-navigation-drawer-background-image-1.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
-            accountEmail: Text(""),
-            accountName: Text(
+            accountEmail: const Text(""),
+            accountName: const Text(
               "",
               // serverController.loggedUser.nickname,
               style: TextStyle(color: Colors.white),
@@ -38,28 +38,28 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               "Mis recetas",
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black,
               ),
             ),
-            leading: Icon(
+            leading: const Icon(
               Icons.book,
               color: Colors.green,
             ),
             onTap: () {},
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               "Mis favoritos",
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black,
               ),
             ),
-            leading: Icon(
+            leading: const Icon(
               Icons.favorite,
               color: Colors.red,
             ),
@@ -72,14 +72,14 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text(
+            title: const Text(
               "Cerrar sesión",
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black,
               ),
             ),
-            leading: Icon(
+            leading: const Icon(
               Icons.power_settings_new,
               color: Colors.blue,
             ),

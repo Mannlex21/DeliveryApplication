@@ -1,9 +1,8 @@
-import 'package:delivery_application/src/bloc/category_bloc.dart';
 import 'package:delivery_application/src/components/home/category_widget.dart';
 import 'package:flutter/material.dart';
 
 class ListCategoryWidget extends StatefulWidget {
-  ListCategoryWidget({Key? key}) : super(key: key);
+  const ListCategoryWidget({Key? key}) : super(key: key);
 
   @override
   _ListCategoryWidgetState createState() => _ListCategoryWidgetState();
@@ -11,11 +10,10 @@ class ListCategoryWidget extends StatefulWidget {
 
 class _ListCategoryWidgetState extends State<ListCategoryWidget> {
   List lists = [];
-  final categoryBloc = new CategoryBloc();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 119,
       child: StreamBuilder(
         // stream: categoryBloc.getCategories,
@@ -28,10 +26,10 @@ class _ListCategoryWidgetState extends State<ListCategoryWidget> {
               lists.add(value);
             });
 
-            return new ListView.builder(
+            return ListView.builder(
               shrinkWrap: true,
               itemCount: lists.length,
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 return CategoryWidget(category: lists[index]);
@@ -39,7 +37,7 @@ class _ListCategoryWidgetState extends State<ListCategoryWidget> {
             );
           }
 
-          return Container(
+          return SizedBox(
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

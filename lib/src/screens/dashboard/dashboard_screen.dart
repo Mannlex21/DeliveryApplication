@@ -1,5 +1,4 @@
 import 'package:delivery_application/src/components/home/drawer_widget.dart';
-import 'package:delivery_application/src/providers/auth.dart';
 import 'package:delivery_application/src/screens/home/home_screen.dart';
 import 'package:delivery_application/src/screens/search/search_screen.dart';
 import 'package:delivery_application/src/screens/settings/setting_screen.dart';
@@ -62,6 +61,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           currentIndex: _selectedIndex,
           selectedItemColor: Theme.of(context).primaryColor,
           backgroundColor: const Color(0xFFF9F9F9),
+          // backgroundColor: const Color(0xFFF9F9F9),
           type: BottomNavigationBarType.fixed,
           elevation: 4,
           onTap: _onItemTapped,

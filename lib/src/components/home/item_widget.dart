@@ -1,18 +1,14 @@
-import 'package:delivery_application/src/bloc/products_bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ItemWidget extends StatefulWidget {
   final item;
-  ItemWidget({this.item, Key? key}) : super(key: key);
+  const ItemWidget({this.item, Key? key}) : super(key: key);
 
   @override
   _ItemWidgetState createState() => _ItemWidgetState();
 }
 
 class _ItemWidgetState extends State<ItemWidget> {
-  final productsBloc = new ProductsBloc();
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -28,7 +24,7 @@ class _ItemWidgetState extends State<ItemWidget> {
             ),
             color: Colors.white,
             elevation: 0,
-            child: Container(
+            child: SizedBox(
               height: 120,
               child: Row(
                 children: [
@@ -77,22 +73,22 @@ class _ItemWidgetState extends State<ItemWidget> {
                         children: [
                           Text(
                             widget.item['name'],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 3,
                           ),
-                          Text(
+                          const Text(
                             "\$ - Mexicana",
                             style: TextStyle(
                               fontSize: 16,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 3,
                           ),
-                          Text(
+                          const Text(
                             "35 min - \$19",
                             style: TextStyle(
                               fontSize: 16,
@@ -109,7 +105,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         IconButton(
-                          icon: Icon(Icons.favorite_border),
+                          icon: const Icon(Icons.favorite_border),
                           color: Theme.of(context).primaryColor,
                           onPressed: () {},
                         ),

@@ -7,13 +7,13 @@ Future<void> main() async {
 }
 
 void initCategoryData() {
-  var categoryData = [
-    {'name': 'Pizza', 'url': 'general-settings/category/pizza-slice.png'},
-    {'name': 'Mexicana', 'url': 'general-settings/category/taco.png'},
-    {'name': 'Sushi', 'url': 'general-settings/category/sushi.png'},
-    {'name': 'Postres', 'url': 'general-settings/category/cake.png'},
-    {'name': 'Saludable', 'url': 'general-settings/category/diet.png'}
-  ];
+  // var categoryData = [
+  //   {'name': 'Pizza', 'url': 'general-settings/category/pizza-slice.png'},
+  //   {'name': 'Mexicana', 'url': 'general-settings/category/taco.png'},
+  //   {'name': 'Sushi', 'url': 'general-settings/category/sushi.png'},
+  //   {'name': 'Postres', 'url': 'general-settings/category/cake.png'},
+  //   {'name': 'Saludable', 'url': 'general-settings/category/diet.png'}
+  // ];
 
   // for (var i = 0; i < categoryData.length; i++) {
   //   final databaseReference = FirebaseDatabase.instance.reference().child("general-settings/category").push();
@@ -27,33 +27,33 @@ void initCategoryData() {
 }
 
 void initProductData() {
-  var productData = [
-    {
-      'name': 'Pizzas Luis',
-      'description': '',
-      'url': 'products/pizzapepperoni0.jpg'
-    },
-    {
-      'name': 'Que tacos!',
-      'description': '',
-      'url': 'products/tacos-mexicanos.jpg'
-    },
-    {
-      'name': 'El gussi',
-      'description': '',
-      'url': 'products/hamburguesa-sencilla.jpg'
-    },
-    {
-      'name': 'Gorditas Doña Tota!',
-      'description': '',
-      'url': 'products/receta-facil-de-chicharron-con-masa.jpg'
-    },
-    {
-      'name': 'Mariscos Martha',
-      'description': '',
-      'url': 'products/Mariscos.jpg'
-    }
-  ];
+  // var productData = [
+  //   {
+  //     'name': 'Pizzas Luis',
+  //     'description': '',
+  //     'url': 'products/pizzapepperoni0.jpg'
+  //   },
+  //   {
+  //     'name': 'Que tacos!',
+  //     'description': '',
+  //     'url': 'products/tacos-mexicanos.jpg'
+  //   },
+  //   {
+  //     'name': 'El gussi',
+  //     'description': '',
+  //     'url': 'products/hamburguesa-sencilla.jpg'
+  //   },
+  //   {
+  //     'name': 'Gorditas Doña Tota!',
+  //     'description': '',
+  //     'url': 'products/receta-facil-de-chicharron-con-masa.jpg'
+  //   },
+  //   {
+  //     'name': 'Mariscos Martha',
+  //     'description': '',
+  //     'url': 'products/Mariscos.jpg'
+  //   }
+  // ];
 
   // for (var i = 0; i < productData.length; i++) {
   //   final databaseReference = FirebaseDatabase.instance.reference().child("products/").push();

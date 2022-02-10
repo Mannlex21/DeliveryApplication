@@ -2,6 +2,7 @@
 import 'package:delivery_application/src/providers/auth.dart';
 import 'package:delivery_application/src/screens/dashboard/dashboard_screen.dart';
 import 'package:delivery_application/src/screens/login/login_screen.dart';
+import 'package:delivery_application/src/screens/settings/edit_profile_screen.dart';
 import 'package:delivery_application/src/screens/store/add_to_cart_screen.dart';
 import 'package:delivery_application/src/screens/store/store_screen.dart';
 import 'package:delivery_application/src/screens/registration/registration_screen.dart';
@@ -38,22 +39,35 @@ class MyApp extends StatelessWidget {
         ),
         onGenerateRoute: (RouteSettings settings) {
           return MaterialPageRoute(builder: (BuildContext context) {
-            switch (settings.name) {
-              case '/':
-                return LoginScreen(context);
-              case '/dashboard':
-                return route(context, const DashboardScreen());
-              case '/registration':
-                return RegistrationScreen(context);
-              case '/search':
-                return route(context, SearchScreen(context, true));
-              case '/productDetail':
-                return route(context, StoreScreen(item: settings.arguments));
-              case '/addToCart':
-                return route(
-                    context, AddToCartScreen(item: settings.arguments));
-              default:
-                return LoginScreen(context);
+            final auth = Provider.of<Auth>(context, listen: false);
+            if (auth.isAuth) {
+              switch (settings.name) {
+                case '/':
+                  return LoginScreen(context);
+                case '/dashboard':
+                  return const DashboardScreen();
+                case '/registration':
+                  return RegistrationScreen(context);
+                case '/search':
+                  return SearchScreen(context, true);
+                case '/productDetail':
+                  return StoreScreen(item: settings.arguments);
+                case '/editProfile':
+                  return EditProfileScreen(context);
+                case '/addToCart':
+                  return AddToCartScreen(item: settings.arguments);
+                default:
+                  return LoginScreen(context);
+              }
+            } else {
+              switch (settings.name) {
+                case '/':
+                  return LoginScreen(context);
+                case '/registration':
+                  return RegistrationScreen(context);
+                default:
+                  return LoginScreen(context);
+              }
             }
           });
         },
@@ -61,8 +75,8 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  dynamic route(BuildContext context, dynamic screen) {
+  dynamic route(BuildContext context, StatefulWidget screen) {
     final auth = Provider.of<Auth>(context, listen: false);
-    return auth.isAuth ? const DashboardScreen() : LoginScreen(context);
+    return auth.isAuth ? screen : LoginScreen(context);
   }
 }

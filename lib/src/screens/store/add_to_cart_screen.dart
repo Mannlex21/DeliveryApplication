@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class AddToCartScreen extends StatefulWidget {
   final item;
-
-  AddToCartScreen({this.item, Key? key}) : super(key: key);
+  const AddToCartScreen({this.item, Key? key}) : super(key: key);
 
   @override
   _AddToCartScreenState createState() => _AddToCartScreenState();
@@ -26,7 +25,6 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.item);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -34,7 +32,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
         leading: Padding(
           padding: const EdgeInsets.only(left: 5),
           child: IconButton(
-            padding: EdgeInsets.all(0),
+            padding: const EdgeInsets.all(0),
             icon: const Icon(
               Icons.arrow_back_ios,
               size: 35,
@@ -62,8 +60,8 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Container(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
           height: 50,
           child: Row(
             children: [
@@ -75,7 +73,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
                     color: Colors.white,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.grey,
                         offset: Offset(0.0, 0.0),
@@ -85,7 +83,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                   ),
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 50,
                         child: ElevatedButton(
                           style: ButtonStyle(
@@ -97,7 +95,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     vertical: 11, horizontal: 15)),
                           ),
                           onPressed: removeItem,
-                          child: Icon(
+                          child: const Icon(
                             Icons.remove,
                             color: Colors.black,
                           ),
@@ -108,12 +106,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                           child: Center(
                             child: Text(
                               countItem.toString(),
-                              style: TextStyle(fontSize: 22),
+                              style: const TextStyle(fontSize: 22),
                             ),
                           ),
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: 50,
                         child: ElevatedButton(
                           style: ButtonStyle(
@@ -125,7 +123,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                                     vertical: 11, horizontal: 15)),
                           ),
                           onPressed: addItem,
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             color: Colors.black,
                           ),
@@ -135,7 +133,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Expanded(
@@ -151,7 +149,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                     ),
                     onPressed: () {},
                     child: Row(
-                      children: [
+                      children: const [
                         Text('Add to Cart'),
                         Expanded(child: SizedBox()),
                         Text('\$100'),
@@ -164,18 +162,16 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
           ),
         ),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-              child: Text(
-                widget.item['title'].toString(),
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
-              ),
-            )
-          ],
-        ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, top: 10),
+            child: Text(
+              widget.item['title'].toString(),
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
+            ),
+          )
+        ],
       ),
     );
   }

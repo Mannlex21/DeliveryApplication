@@ -94,9 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 color: Colors.white,
                 height: 119,
-                child: ListCategoryWidget(),
+                child: const ListCategoryWidget(),
               ),
-              ListItemWidget()
+              const ListItemWidget()
             ],
           ),
         ),

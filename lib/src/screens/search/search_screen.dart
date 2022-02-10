@@ -1,11 +1,11 @@
 import 'package:delivery_application/src/components/home/list_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class SearchScreen extends StatefulWidget {
   final BuildContext context;
   final bool showleading;
-  SearchScreen(this.context, this.showleading, {Key? key}) : super(key: key);
+  const SearchScreen(this.context, this.showleading, {Key? key})
+      : super(key: key);
 
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -17,10 +17,9 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        brightness: Brightness.light,
         leading: widget.showleading
             ? IconButton(
-                icon: Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios),
                 iconSize: 30,
                 padding: const EdgeInsets.only(left: 25),
                 onPressed: () {
@@ -38,7 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   borderRadius: BorderRadius.circular(15),
                   color: Colors.grey[300],
                 ),
-                child: TextField(
+                child: const TextField(
                   decoration: InputDecoration(
                     prefixIcon: Padding(
                       padding: EdgeInsets.all(0),
@@ -70,7 +69,7 @@ class _SearchScreenState extends State<SearchScreen> {
       body: MediaQuery.removePadding(
         context: context,
         removeTop: true,
-        child: ListItemWidget(),
+        child: const ListItemWidget(),
       ),
     );
   }

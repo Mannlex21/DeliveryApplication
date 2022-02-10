@@ -1,4 +1,3 @@
-import 'package:delivery_application/src/bloc/products_bloc.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailWidget extends StatefulWidget {
@@ -10,7 +9,6 @@ class ItemDetailWidget extends StatefulWidget {
 }
 
 class _ItemDetailWidgetState extends State<ItemDetailWidget> {
-  final productsBloc = new ProductsBloc();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -20,7 +18,7 @@ class _ItemDetailWidgetState extends State<ItemDetailWidget> {
       child: Card(
         color: Colors.white,
         elevation: 0,
-        child: Container(
+        child: SizedBox(
           height: 110,
           child: Row(
             children: [
@@ -34,11 +32,11 @@ class _ItemDetailWidgetState extends State<ItemDetailWidget> {
                     children: [
                       Text(
                         widget.item['title'].toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w600),
                       ),
                       if (widget.item['description'].toString().isNotEmpty) ...[
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Text(
@@ -47,12 +45,12 @@ class _ItemDetailWidgetState extends State<ItemDetailWidget> {
                               TextStyle(fontSize: 17, color: Colors.grey[700]),
                         )
                       ],
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         '\$ ${widget.item['price']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                         ),
                       ),

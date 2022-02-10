@@ -1,10 +1,8 @@
-import 'package:delivery_application/src/bloc/products_bloc.dart';
-import 'package:delivery_application/src/components/home/item_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ListItemWidget extends StatefulWidget {
-  ListItemWidget({Key? key}) : super(key: key);
+  const ListItemWidget({Key? key}) : super(key: key);
 
   @override
   _ListItemWidgetState createState() => _ListItemWidgetState();
@@ -12,7 +10,6 @@ class ListItemWidget extends StatefulWidget {
 
 class _ListItemWidgetState extends State<ListItemWidget> {
   List lists = [];
-  final productsBloc = new ProductsBloc();
 
   @override
   Widget build(BuildContext context) {

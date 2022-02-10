@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import '../../../models/response.dart';
+
 const storage = FlutterSecureStorage();
 
 class LoginScreen extends StatefulWidget {
@@ -21,7 +23,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final _emailOrUserController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   String email = "";
@@ -63,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           TextFormField(
                             decoration:
                                 const InputDecoration(labelText: "Usuario:"),
-                            controller: _emailOrUserController,
+                            controller: _usernameController,
                             focusNode: emailFocus,
                             onEditingComplete: () =>
                                 requestFocus(context, passwordFocus),
@@ -185,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     super.dispose();
-    _emailOrUserController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
 
     emailFocus.dispose();
@@ -217,25 +219,30 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       var map = <String, dynamic>{};
-      map['username'] = _emailOrUserController.text;
+      map['username'] = _usernameController.text;
       map['password'] = _passwordController.text;
 
       var request = await http.post(
-        Uri.parse('http://192.168.1.64:9090/token'),
+        Uri.parse('http://192.168.1.64:9090/client/login'),
         body: <String, dynamic>{
-          'username': _emailOrUserController.text,
+          'username': _usernameController.text,
           'password': _passwordController.text
         },
       );
 
-      var result = jsonDecode(request.body.toString());
-
-      if (result['status_code'] == 200) {
-        auth.login(result['access_token']);
-        Navigator.of(context).pushReplacementNamed('/dashboard');
+      var result = Response.fromJson(jsonDecode(request.body.toString()));
+      if (result.success) {
+        auth.login(result.value['access_token']).then((value) {
+          if (value) {
+            Navigator.of(context).pushReplacementNamed('/dashboard');
+          } else {
+            displayDialog(context, "An Error Occurred",
+                "No account was found matching that username and password");
+          }
+        });
       } else {
-        displayDialog(context, "An Error Occurred",
-            "No account was found matching that username and password");
+        displayDialog(
+            context, "An Error Occurred", '${result.errorList?.first.message}');
       }
     }
   }

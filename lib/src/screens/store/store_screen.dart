@@ -1,4 +1,3 @@
-import 'package:delivery_application/src/bloc/products_bloc.dart';
 import 'package:delivery_application/src/components/item/item_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +10,6 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> {
-  final productsBloc = new ProductsBloc();
   int currentIndex = 0;
   TabBar get _tabBar => TabBar(
         isScrollable: true,
@@ -19,8 +17,8 @@ class _StoreScreenState extends State<StoreScreen> {
         labelColor: Colors.black,
         indicatorColor: Theme.of(context).primaryColor,
         unselectedLabelColor: Colors.grey,
-        labelPadding: EdgeInsets.symmetric(horizontal: 30.0),
-        labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 30.0),
+        labelStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         tabs: List<Widget>.generate(
           widget.item['product']['menu'].length,
           (int index) {
@@ -43,7 +41,7 @@ class _StoreScreenState extends State<StoreScreen> {
                 leading: Padding(
                   padding: const EdgeInsets.only(left: 5),
                   child: IconButton(
-                    padding: EdgeInsets.all(0),
+                    padding: const EdgeInsets.all(0),
                     icon: const Icon(
                       Icons.arrow_back_ios,
                       size: 35,
@@ -153,55 +151,53 @@ class _StoreScreenState extends State<StoreScreen> {
                     (int index) {
                       final children = widget.item['product']['menu'][index];
 
-                      return Container(
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Text(
-                                    children['title'],
-                                    style: TextStyle(
-                                        fontSize: 26,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                      return ListView(
+                        shrinkWrap: true,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Text(
+                                  children['title'],
+                                  style: const TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                new ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  itemCount: children['children'].length,
-                                  physics: ScrollPhysics(),
-                                  itemBuilder:
-                                      (BuildContext context, int indexItem) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
-                                      child: Column(
-                                        children: [
-                                          ItemDetailWidget(
-                                              item: children['children']
-                                                  [indexItem]),
-                                          Divider(
-                                            color: Colors.grey[700],
-                                            thickness: 0.5,
-                                            height: 30,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: children['children'].length,
+                                physics: const ScrollPhysics(),
+                                itemBuilder:
+                                    (BuildContext context, int indexItem) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Column(
+                                      children: [
+                                        ItemDetailWidget(
+                                            item: children['children']
+                                                [indexItem]),
+                                        Divider(
+                                          color: Colors.grey[700],
+                                          thickness: 0.5,
+                                          height: 30,
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -217,7 +213,6 @@ class _StoreScreenState extends State<StoreScreen> {
   @override
   void initState() {
     super.initState();
-    print(widget.item);
   }
 
   @override
@@ -239,11 +234,9 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      child: new ColoredBox(
-        color: Colors.white,
-        child: _tabBar,
-      ),
+    return ColoredBox(
+      color: Colors.white,
+      child: _tabBar,
     );
   }
 
