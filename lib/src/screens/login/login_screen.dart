@@ -223,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
       map['password'] = _passwordController.text;
 
       var request = await http.post(
-        Uri.parse('http://192.168.1.64:9090/client/login'),
+        Uri.parse('http://127.0.0.1:8000/client/login'),
         body: <String, dynamic>{
           'username': _usernameController.text,
           'password': _passwordController.text
@@ -255,7 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
   Future<dynamic> downloadData() async {
-    var request = await http.get(Uri.parse('http://192.168.1.64:9090/getImg'));
+    var request = await http.get(Uri.parse('http://127.0.0.1:8000/getImg'));
     return jsonDecode(request.body.toString());
   }
 
