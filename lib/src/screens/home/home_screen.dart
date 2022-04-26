@@ -90,13 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
           context: context,
           removeTop: true,
           child: ListView(
-            children: [
-              Container(
-                color: Colors.white,
-                height: 119,
-                child: const ListCategoryWidget(),
-              ),
-              const ListItemWidget()
+            children: const [
+              // Container(
+              //   color: Colors.white,
+              //   height: 119,
+              //   child: const ListCategoryWidget(),
+              // ),
+              ListItemWidget()
             ],
           ),
         ),

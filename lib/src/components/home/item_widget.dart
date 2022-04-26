@@ -1,14 +1,21 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io' as io;
+import '../../../models/item.dart';
 
 class ItemWidget extends StatefulWidget {
-  final item;
-  const ItemWidget({this.item, Key? key}) : super(key: key);
+  final Item? item;
+  const ItemWidget({required this.item, Key? key}) : super(key: key);
 
   @override
   _ItemWidgetState createState() => _ItemWidgetState();
 }
 
 class _ItemWidgetState extends State<ItemWidget> {
+  io.File? image;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -16,7 +23,7 @@ class _ItemWidgetState extends State<ItemWidget> {
         child: GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed('/productDetail',
-                arguments: {'product': widget.item});
+                arguments: {'id': widget.item!.id});
           },
           child: Card(
             shape: RoundedRectangleBorder(
@@ -28,6 +35,10 @@ class _ItemWidgetState extends State<ItemWidget> {
               height: 120,
               child: Row(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: loadImg(),
+                  ),
                   // Padding(
                   //   padding: const EdgeInsets.all(5),
                   //   child: StreamBuilder(
@@ -72,7 +83,7 @@ class _ItemWidgetState extends State<ItemWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.item['name'],
+                            '${widget.item?.title}',
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
@@ -121,8 +132,45 @@ class _ItemWidgetState extends State<ItemWidget> {
     );
   }
 
+  Widget loadImg() {
+    if (image == null) {
+      return SizedBox(
+        height: 120,
+        width: 130,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.asset(
+            "assets/image/default-image.png",
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    } else {
+      return SizedBox(
+        height: 120,
+        width: 130,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: Image.file(
+            image!,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+  }
+
+  Future getImg() async {
+    final decodedBytes = base64Decode('${widget.item?.image}');
+    final directory = await getApplicationDocumentsDirectory();
+    var fileImg = io.File('${directory.path}/${widget.item!.id}-profile.jpeg');
+    fileImg.writeAsBytesSync(List.from(decodedBytes));
+    setState(() => image = fileImg);
+  }
+
   @override
   void initState() {
     super.initState();
+    getImg();
   }
 }

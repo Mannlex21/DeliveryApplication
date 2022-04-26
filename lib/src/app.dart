@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
                 case '/search':
                   return SearchScreen(context, true);
                 case '/productDetail':
-                  return StoreScreen(item: settings.arguments);
+                  return StoreScreen(idItem: settings.arguments);
                 case '/editProfile':
                   return EditProfileScreen(context);
                 case '/addToCart':
