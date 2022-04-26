@@ -345,7 +345,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         });
 
         var request = await http.post(
-          Uri.parse('http://192.168.1.64:9090/client/signUp'),
+          Uri.parse('http://127.0.0.1:8000/client/signUp'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },

@@ -79,11 +79,10 @@ class Auth with ChangeNotifier {
     if (token.isEmpty) {
       return null;
     } else {
-      var request = await http.get(
-          Uri.parse('http://192.168.1.64:9090/client/currentUser'),
-          headers: {
-            'Authorization': 'Bearer $token',
-          });
+      var request = await http
+          .get(Uri.parse('http://127.0.0.1:8000/client/currentUser'), headers: {
+        'Authorization': 'Bearer $token',
+      });
       var result = Response.fromJson(jsonDecode(request.body.toString()));
       return result.success ? User.fromJson(result.value) : null;
     }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:delivery_application/models/error.dart';
 
 class Response<T> {
@@ -15,7 +13,6 @@ class Response<T> {
       this.errorList});
 
   Response.fromJson(Map<String, dynamic> json) {
-    var r = json['errorList'];
     success = json['success'];
     failure = json['failure'];
     value = json['value'];

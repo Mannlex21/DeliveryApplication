@@ -372,7 +372,7 @@ class _SettingScreenState extends State<SettingScreen> {
       final imageTemporary = io.File(image.path);
       final encodeBytes = base64Encode(imageTemporary.readAsBytesSync());
       var request = await http.post(
-        Uri.parse('http://192.168.1.64:9090/client/uploadProfileImage'),
+        Uri.parse('http://127.0.0.1:8000/client/uploadProfileImage'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ${auth.token}',
@@ -399,7 +399,7 @@ class _SettingScreenState extends State<SettingScreen> {
     try {
       final auth = Provider.of<Auth>(context, listen: false);
       var request = await http.delete(
-        Uri.parse('http://192.168.1.64:9090/client/deteleProfileImage'),
+        Uri.parse('http://127.0.0.1:8000/client/deteleProfileImage'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ${auth.token}',
@@ -419,7 +419,7 @@ class _SettingScreenState extends State<SettingScreen> {
   Future getImgProfile() async {
     final auth = Provider.of<Auth>(context, listen: false);
     var request = await http.get(
-        Uri.parse('http://192.168.1.64:9090/client/getProfileImage'),
+        Uri.parse('http://127.0.0.1:8000/client/getProfileImage'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': 'Bearer ${auth.token}',
