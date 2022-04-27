@@ -26,12 +26,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  String email = "";
-  String password = "";
+  String user = "Mannlex21";
+  String password = "mannlex";
   String errorMessage = "";
   bool showPassword = false;
 
-  late FocusNode emailFocus;
+  late FocusNode userFocus;
   late FocusNode passwordFocus;
 
   List<User> listOfUsers = [];
@@ -66,12 +66,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             decoration:
                                 const InputDecoration(labelText: "Usuario:"),
                             controller: _usernameController,
-                            focusNode: emailFocus,
                             onEditingComplete: () =>
                                 requestFocus(context, passwordFocus),
                             textInputAction: TextInputAction.next,
                             onSaved: (value) {
-                              email = value!;
+                              user = value!;
                             },
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -190,14 +189,16 @@ class _LoginScreenState extends State<LoginScreen> {
     _usernameController.dispose();
     _passwordController.dispose();
 
-    emailFocus.dispose();
+    userFocus.dispose();
     passwordFocus.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    emailFocus = FocusNode();
+    _usernameController.text = "Mannlex21";
+    _passwordController.text = "mannlex";
+    userFocus = FocusNode();
     passwordFocus = FocusNode();
   }
 

@@ -391,7 +391,7 @@ class _SettingScreenState extends State<SettingScreen> {
         displayDialog(context, "Error", "${result.errorList?.first.message}");
       }
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+      displayDialog(context, "Error", "Failed to pick image: $e");
     }
   }
 

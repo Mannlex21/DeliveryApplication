@@ -167,7 +167,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 10),
             child: Text(
-              widget.item['title'].toString(),
+              'title', //widget.item['title'].toString(),
               style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
             ),
           )

@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:delivery_application/models/arguments/item_argument.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 import '../../../models/item.dart';
+import '../utils/image.dart';
 
 class ItemWidget extends StatefulWidget {
   final Item? item;
@@ -23,7 +25,7 @@ class _ItemWidgetState extends State<ItemWidget> {
         child: GestureDetector(
           onTap: () {
             Navigator.of(context).pushNamed('/productDetail',
-                arguments: {'id': widget.item!.id});
+                arguments: ItemArgument('item', widget.item));
           },
           child: Card(
             shape: RoundedRectangleBorder(
@@ -37,43 +39,8 @@ class _ItemWidgetState extends State<ItemWidget> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: loadImg(),
+                    child: loadImg(image, 120, 130, 15),
                   ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(5),
-                  //   child: StreamBuilder(
-                  //     stream: productsBloc.getImg(widget.item['image']['url']),
-                  //     builder: (_, AsyncSnapshot<String> snapshot) {
-                  //       if (snapshot.hasData) {
-                  //         return Container(
-                  //           height: 120,
-                  //           width: 130,
-                  //           decoration: BoxDecoration(
-                  //             color: const Color(0xFFF6F6F6),
-                  //             borderRadius: BorderRadius.circular(15),
-                  //             image: DecorationImage(
-                  //               image: NetworkImage(snapshot.data),
-                  //               fit: BoxFit.cover,
-                  //             ),
-                  //           ),
-                  //         );
-                  //       }
-
-                  //       return Container(
-                  //         height: 120,
-                  //         width: 130,
-                  //         decoration: BoxDecoration(
-                  //           color: const Color(0xFFF6F6F6),
-                  //           borderRadius: BorderRadius.circular(15),
-                  //           image: DecorationImage(
-                  //             image: AssetImage("assets/image/default-image.png"),
-                  //             fit: BoxFit.cover,
-                  //           ),
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
                   Expanded(
                     flex: 4,
                     child: Padding(
@@ -132,45 +99,13 @@ class _ItemWidgetState extends State<ItemWidget> {
     );
   }
 
-  Widget loadImg() {
-    if (image == null) {
-      return SizedBox(
-        height: 120,
-        width: 130,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Image.asset(
-            "assets/image/default-image.png",
-            fit: BoxFit.cover,
-          ),
-        ),
-      );
-    } else {
-      return SizedBox(
-        height: 120,
-        width: 130,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(15),
-          child: Image.file(
-            image!,
-            fit: BoxFit.cover,
-          ),
-        ),
-      );
-    }
-  }
-
-  Future getImg() async {
-    final decodedBytes = base64Decode('${widget.item?.image}');
-    final directory = await getApplicationDocumentsDirectory();
-    var fileImg = io.File('${directory.path}/${widget.item!.id}-profile.jpeg');
-    fileImg.writeAsBytesSync(List.from(decodedBytes));
-    setState(() => image = fileImg);
-  }
-
   @override
   void initState() {
     super.initState();
-    getImg();
+    getImg(widget.item?.image, 'store-image-${widget.item!.id}').then((value) {
+      setState(() {
+        image = value;
+      });
+    });
   }
 }

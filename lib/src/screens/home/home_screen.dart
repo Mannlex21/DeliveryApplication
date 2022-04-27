@@ -1,4 +1,3 @@
-import 'package:delivery_application/src/components/home/list_category_widget.dart';
 import 'package:delivery_application/src/components/home/list_item_widget.dart';
 import 'package:flutter/material.dart';
 

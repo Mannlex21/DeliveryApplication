@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +64,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
     try {
       final auth = Provider.of<Auth>(context, listen: false);
       var request = await http.get(
-          Uri.parse('http://192.168.1.64:9090/items/getItems'),
+          Uri.parse('http://127.0.0.1:8000/items/getItems'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'Authorization': 'Bearer ${auth.token}',

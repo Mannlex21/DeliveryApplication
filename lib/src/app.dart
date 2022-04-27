@@ -1,4 +1,7 @@
 // import 'package:delivery_application/routes/router.gr.dart';
+import 'dart:convert';
+
+import 'package:delivery_application/models/arguments/item_argument.dart';
 import 'package:delivery_application/src/providers/auth.dart';
 import 'package:delivery_application/src/screens/dashboard/dashboard_screen.dart';
 import 'package:delivery_application/src/screens/login/login_screen.dart';
@@ -9,6 +12,8 @@ import 'package:delivery_application/src/screens/registration/registration_scree
 import 'package:delivery_application/src/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../models/item.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -51,7 +56,8 @@ class MyApp extends StatelessWidget {
                 case '/search':
                   return SearchScreen(context, true);
                 case '/productDetail':
-                  return StoreScreen(idItem: settings.arguments);
+                  final item = settings.arguments as ItemArgument;
+                  return StoreScreen(item: item.value);
                 case '/editProfile':
                   return EditProfileScreen(context);
                 case '/addToCart':
