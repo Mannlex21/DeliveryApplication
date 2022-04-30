@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:delivery_application/models/arguments/item_argument.dart';
+import 'package:delivery_application/models/arguments/menu_item_argument.dart';
 import 'package:delivery_application/src/providers/auth.dart';
 import 'package:delivery_application/src/screens/dashboard/dashboard_screen.dart';
 import 'package:delivery_application/src/screens/login/login_screen.dart';
@@ -61,7 +62,8 @@ class MyApp extends StatelessWidget {
                 case '/editProfile':
                   return EditProfileScreen(context);
                 case '/addToCart':
-                  return AddToCartScreen(item: settings.arguments);
+                  final item = settings.arguments as MenuItemArgument;
+                  return AddToCartScreen(item: item.value);
                 default:
                   return LoginScreen(context);
               }

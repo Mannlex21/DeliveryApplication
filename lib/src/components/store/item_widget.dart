@@ -1,3 +1,4 @@
+import 'package:delivery_application/models/arguments/menu_item_argument.dart';
 import 'package:delivery_application/models/menu-item.dart';
 import 'package:delivery_application/src/components/utils/image.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,10 @@ class _ItemDetailWidgetState extends State<ItemDetailWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('/addToCart', arguments: widget.item);
+        Navigator.of(context).pushNamed(
+          '/addToCart',
+          arguments: MenuItemArgument('item', widget.item),
+        );
       },
       child: Card(
         color: Colors.white,
@@ -45,9 +49,9 @@ class _ItemDetailWidgetState extends State<ItemDetailWidget> {
                         ),
                         Text(
                           widget.item!.description,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17,
-                            color: Colors.grey[700],
+                            color: Color(0xFF616161),
                           ),
                         )
                       ],
@@ -64,9 +68,7 @@ class _ItemDetailWidgetState extends State<ItemDetailWidget> {
                   ),
                 ),
               ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 15, right: 0),
-                  child: loadImg(image, 120, 130, 15)),
+              loadImg(image, 100, 130, 15),
             ],
           ),
         ),

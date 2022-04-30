@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io' as io;
+import 'package:delivery_application/src/components/utils/image.dart';
 import 'package:delivery_application/src/providers/auth.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -50,7 +51,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                 context: context,
                                 builder: (context) => buildSheet(),
                               ),
-                              child: loadImg(),
+                              child: loadImg(image, 100, 100, 100),
                             ),
                             const SizedBox(
                               height: 5,
@@ -72,7 +73,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               child: const Text(
                                 'Edit Account',
                                 style: TextStyle(
-                                  color: Colors.blue,
+                                  color: Color(0xFF2196F3),
                                   fontSize: 12,
                                 ),
                               ),
@@ -165,7 +166,7 @@ class _SettingScreenState extends State<SettingScreen> {
                               child: const Text(
                                 'Add Place',
                                 style: TextStyle(
-                                    color: Colors.green, fontSize: 12),
+                                    color: Color(0xFF4CAF50), fontSize: 16),
                               ),
                             ),
                           ),
@@ -329,38 +330,6 @@ class _SettingScreenState extends State<SettingScreen> {
           style: const TextStyle(color: Colors.black, fontSize: 16),
         ),
       );
-
-  Widget loadImg() {
-    if (image == null) {
-      return ClipOval(
-        child: SizedBox.fromSize(
-          size: const Size.fromRadius(35), // Image radius
-          child: Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              color: const Color(0xFFF6F6F6),
-              borderRadius: BorderRadius.circular(5),
-              image: const DecorationImage(
-                image: AssetImage("assets/image/default-profile-image.png"),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-      );
-    } else {
-      return ClipOval(
-        child: SizedBox.fromSize(
-          size: const Size.fromRadius(35), // Image radius
-          child: Image.file(
-            image!,
-            fit: BoxFit.cover,
-          ),
-        ),
-      );
-    }
-  }
 
   Future uploadImgFrom({
     required ImageSource source,

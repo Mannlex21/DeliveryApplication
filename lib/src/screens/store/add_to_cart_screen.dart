@@ -1,8 +1,9 @@
+import 'package:delivery_application/models/menu-item.dart';
 import 'package:flutter/material.dart';
 
 class AddToCartScreen extends StatefulWidget {
-  final item;
-  const AddToCartScreen({this.item, Key? key}) : super(key: key);
+  final MenuItem? item;
+  const AddToCartScreen({required this.item, Key? key}) : super(key: key);
 
   @override
   _AddToCartScreenState createState() => _AddToCartScreenState();
@@ -59,106 +60,111 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SizedBox(
-          height: 50,
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: Container(
-                  width: 160,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 0.0),
-                        blurRadius: 2.0,
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: 50,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            elevation: MaterialStateProperty.all(0),
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    vertical: 11, horizontal: 15)),
-                          ),
-                          onPressed: removeItem,
-                          child: const Icon(
-                            Icons.remove,
-                            color: Colors.black,
-                          ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 50,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 5),
+                  child: Container(
+                    width: 130,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 0.0),
+                          blurRadius: 2.0,
                         ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          child: Center(
-                            child: Text(
-                              countItem.toString(),
-                              style: const TextStyle(fontSize: 22),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 50,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              elevation: MaterialStateProperty.all(0),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 11, horizontal: 15)),
+                            ),
+                            onPressed: removeItem,
+                            child: const Icon(
+                              Icons.remove,
+                              color: Colors.black,
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 50,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            elevation: MaterialStateProperty.all(0),
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.symmetric(
-                                    vertical: 11, horizontal: 15)),
-                          ),
-                          onPressed: addItem,
-                          child: const Icon(
-                            Icons.add,
-                            color: Colors.black,
+                        Expanded(
+                          child: SizedBox(
+                            child: Center(
+                              child: Text(
+                                countItem.toString(),
+                                style: const TextStyle(fontSize: 22),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 5),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Theme.of(context).primaryColor),
-                      padding: MaterialStateProperty.all(
-                          const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 15)),
-                    ),
-                    onPressed: () {},
-                    child: Row(
-                      children: const [
-                        Text('Add to Cart'),
-                        Expanded(child: SizedBox()),
-                        Text('\$100'),
+                        SizedBox(
+                          width: 50,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              elevation: MaterialStateProperty.all(0),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 11, horizontal: 15)),
+                            ),
+                            onPressed: addItem,
+                            child: const Icon(
+                              Icons.add,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  width: 15,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).primaryColor),
+                        padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 15)),
+                      ),
+                      onPressed: () {},
+                      child: Row(
+                        children: const [
+                          Text(
+                            'Add to Cart',
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          Expanded(child: SizedBox()),
+                          Text('\$100'),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -167,7 +173,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 10, top: 10),
             child: Text(
-              'title', //widget.item['title'].toString(),
+              widget.item!.title,
               style: const TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
             ),
           )
